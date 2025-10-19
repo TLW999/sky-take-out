@@ -4,4 +4,11 @@
     <select id="countsetMeal" resultType="java.lang.Integer">
         select count(id) from setmeal where category_id = #{categoryId}
     </select>
+    <select id="countByDishId" resultType="java.lang.Integer">
+        select count(*) from setmeal_dish where dish_id in
+        <foreach collection="dishids" item="dishid" separator="," open="(" close=")">
+            #{dishid}
+        </foreach>
+
+    </select>
 </mapper>
