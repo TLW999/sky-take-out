@@ -66,4 +66,11 @@ public class DishController {
         return Result.success();
     }
 
+    @GetMapping("/list")
+    public Result<List<Dish>> dishList(Long categoryId) {
+        log.info("菜品id:{}", categoryId);
+        List<Dish> dishs = dishService.dishlist(categoryId);
+        return Result.success(dishs);
+    }
+
 }

@@ -1,14 +1,73 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sky.mapper.SetmealMapper">
+    <update id="updateStatus">
+        update setmeal
+        <set>
+            <if test="status != null">status = #{status},</if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="update">
+        update setmeal
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="description">description = #{description},</if>
+            <if test="status">status = #{status},</if>
+            <if test="image">image = #{image},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUser != null">update_user = #{updateUser},</if>
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="deletemeal">
+        delete from setmeal where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
     <select id="countsetMeal" resultType="java.lang.Integer">
-        select count(id) from setmeal where category_id = #{categoryId}
+        select count(id)
+        from setmeal
+        where category_id = #{categoryId}
     </select>
     <select id="countByDishId" resultType="java.lang.Integer">
         select count(*) from setmeal_dish where dish_id in
         <foreach collection="dishids" item="dishid" separator="," open="(" close=")">
             #{dishid}
         </foreach>
-
     </select>
+    <select id="pageSetmeal" resultType="com.sky.vo.SetmealVO">
+        select s1.*,c1.name categoryName from setmeal s1,category c1
+        <where>s1.category_id = c1.id</where>
+        <if test="name  != null ">
+            and s1.name like concat('%',#{name},'%')
+        </if>
+        <if test="categoryId">
+            and s1.category_id = #{categoryId}
+        </if>
+        <if test="status != null">
+            and s1.status = #{status}
+        </if>
+        order by update_time desc
+    </select>
+    <select id="selectid" resultType="com.sky.entity.Setmeal">
+        select *
+        from setmeal
+        where id = #{id}
+    </select>
+    <select id="selectNoSale" resultType="com.sky.entity.Dish">
+        select d1.*
+        from setmeal s1,setmeal_dish s2 ,dish d1
+        where s1.id=s2.setmeal_id and s2.dish_id =d1.id and s1.id =#{id}
+    </select>
+
+
+    <insert id="addSetmeal" useGeneratedKeys="true" keyProperty="id">
+        insert into setmeal
+        values (null, #{categoryId}, #{name}, #{price}, #{status}, #{description}, #{image}, #{createTime},
+                #{updateTime}, #{createUser}, #{updateUser})
+    </insert>
 </mapper>

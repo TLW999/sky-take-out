@@ -7,7 +7,6 @@ import com.sky.entity.Dish;
 import com.sky.enumeration.OperationType;
 import com.sky.vo.DishVO;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -29,4 +28,6 @@ public interface DishMapper {
     void update(Dish dish);
 
     void updatestatus(Integer status, Long id);
+
+    List<Dish> listdish(Long categoryId);
 }
