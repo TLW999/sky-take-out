@@ -21,13 +21,14 @@ public class CommonController {
     @Autowired
     private AliOssUtil aliOssUtil;
 
+
     @PostMapping("/upload")
     public Result upload(MultipartFile file) {
         //获取原始文件名
         String originalFilename = file.getOriginalFilename();
         log.info("文件上传，原始文件名：{}", originalFilename);
         String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));//获取文件后缀：.jpg
-        String url = null;
+        String url;
 
         //1.调用AliOssUtil工具类的upload文件上传方法
         try {

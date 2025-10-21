@@ -13,7 +13,7 @@ public class OssConfiguration {
     public AliOssUtil aliOssUtil(AliOssProperties aliOssProperties) {
         log.info("初始化aliyunOssUtil对象");
         AliOssUtil aliOssUtil = new AliOssUtil(aliOssProperties.getEndpoint(), aliOssProperties.getAccessKeyId(), aliOssProperties.getAccessKeySecret(), aliOssProperties.getBucketName());
-
         return aliOssUtil;
     }
+
 }
