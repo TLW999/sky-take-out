@@ -63,6 +63,20 @@
         from setmeal s1,setmeal_dish s2 ,dish d1
         where s1.id=s2.setmeal_id and s2.dish_id =d1.id and s1.id =#{id}
     </select>
+    <select id="list" resultType="com.sky.entity.Setmeal">
+        select *
+        from setmeal
+        <where>
+            <if test="name != null">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="status != null">status = #{status}
+        </if>
+        </where>
+    </select>
 
 
     <insert id="addSetmeal" useGeneratedKeys="true" keyProperty="id">

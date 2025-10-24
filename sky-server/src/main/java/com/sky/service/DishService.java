@@ -23,4 +23,6 @@ public interface DishService {
     void ableOrEnable(Integer status, Long id);
 
     List<Dish> dishlist(Long categoryId);
+
+    List<DishVO> listWithFlavor(Dish dish);
 }
