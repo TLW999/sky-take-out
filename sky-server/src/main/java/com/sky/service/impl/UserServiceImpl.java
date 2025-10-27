@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private WeChatProperties weChatProperties;
+    @Autowired
     private UserMapper userMapper;
 
     @Override
